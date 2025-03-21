@@ -10,7 +10,7 @@ const storyRoutes = require('./routes/storyRoutes'); // Import story routes
 const MongoDBStore = require('connect-mongodb-session')(session);
 // Load environment variables
 dotenv.config();
-
+mongoose.set('strictQuery', false);
 const app = express();
 
 // Middleware
@@ -26,12 +26,11 @@ mongoose.set('strictQuery', true); // Avoid deprecation warnings in Mongoose 7+
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  serverSelectionTimeoutMS: 30000, // Set a lower timeout
+  serverSelectionTimeoutMS: 30000, // 30 seconds timeout
 })
   .then(() => console.log('✅ Connected to MongoDB successfully!'))
   .catch((err) => {
-    console.error('❌ MongoDB connection error:', err.message);
-    process.exit(1); // Stop app if MongoDB fails
+    console.error('❌ MongoDB Connection Failed:', err.message);
   });
 
 // Session middleware
