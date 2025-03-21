@@ -26,12 +26,12 @@ mongoose.set('strictQuery', true); // Avoid deprecation warnings in Mongoose 7+
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  serverSelectionTimeoutMS: 300000000, // Timeout after 30 seconds
+  serverSelectionTimeoutMS: 30000, // Set a lower timeout
 })
-  .then(() => console.log('Connected to MongoDB successfully!'))
+  .then(() => console.log('✅ Connected to MongoDB successfully!'))
   .catch((err) => {
-    console.error('MongoDB connection error:', err.message);
-    process.exit(1); // Exit the application if DB connection fails
+    console.error('❌ MongoDB connection error:', err.message);
+    process.exit(1); // Stop app if MongoDB fails
   });
 
 // Session middleware
